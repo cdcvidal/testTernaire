@@ -116,7 +116,32 @@ class Fields(Base):
         self.values=[]
 
     def __repr__(self):
-        return '<Fields {}>'.format(self.name+" "+self.pos)
+        return '<Fields {}>'.format(self.name+" "+str(self.pos))
+
+    def as_dict(self):
+       return {c.name: getattr(self, c.name) for c in self.__table__.columns}
+
+    def getCol():
+       data = []
+       for c in Pois.__table__.columns :
+           if c.name not in ['id']:
+               data.append(c.name)
+       return data
+
+    def getColRequired():
+       data = []
+       for c in Pois.__table__.columns :
+           if c.name not in ['id','values'] and not c.nullable:
+               data.append(c.name)
+       return data
+
+    def getColOptional():
+       data = []
+       for c in Pois.__table__.columns :
+           #print ( c.__dict__ )
+           if c.name not in ['id'] and c.nullable:
+               data.append(c.name)
+       return data
 
 
 
@@ -144,4 +169,29 @@ class Values(Base):
         self.pois=[]
 
     def __repr__(self):
-        return '<Fields {}>'.format(self.fieldValues+" "+self.createdDate+" "+self.status)
+        return '<Values {}>'.format(self.fieldValues+" "+str(self.createdDate)+" "+self.status)
+
+    def as_dict(self):
+       return {c.name: getattr(self, c.name) for c in self.__table__.columns}
+
+    def getCol():
+       data = []
+       for c in Pois.__table__.columns :
+           if c.name not in ['id']:
+               data.append(c.name)
+       return data
+
+    def getColRequired():
+       data = []
+       for c in Pois.__table__.columns :
+           if c.name not in ['id','values'] and not c.nullable:
+               data.append(c.name)
+       return data
+
+    def getColOptional():
+       data = []
+       for c in Pois.__table__.columns :
+           #print ( c.__dict__ )
+           if c.name not in ['id'] and c.nullable:
+               data.append(c.name)
+       return data
