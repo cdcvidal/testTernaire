@@ -79,7 +79,7 @@ class Pois(Base):
     def getColRequired():
        data = []
        for c in Pois.__table__.columns :
-           if c.name not in ['id','values'] and not c.nullable:
+           if c.name not in ['id','values','fields'] and not c.nullable:
                data.append(c.name)
        return data
 
