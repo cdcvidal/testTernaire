@@ -53,8 +53,7 @@ def main(argv=sys.argv):
         #test INSERT Pois
         requiredVal = {}
         optionalVal = {}
-        requiredVal['name'] = "thirdPoi"
-        requiredVal['password'] = '0000'
+        requiredVal['tour_id'] = "34"
         firstValue=Values(fieldValues="{'url':'http://laaaalu'}", createdDate=datetime(2014, 3, 25), status='en cours')
         firstPoi = Pois(requiredVal, optionalVal)
         firstField=Fields(pos=3, name='Champ_photo')

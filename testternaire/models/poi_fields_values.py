@@ -32,13 +32,14 @@ class Association_PFV(Base):
         self.values = values
 
     def __repr__(self):
-        return '<Association_PFV {}>'.format(self.pois.name+" "+self.fields.name+" "+self.values.fieldValues)
+        return '<Association_PFV {}>'.format(self.pois.id+" "+self.fields.name+" "+self.values.fieldValues)
 
 
 class Pois(Base):
     __tablename__ = 'pois'
     id = Column(Integer, primary_key=True)
-    name = Column(String(250), nullable=False)
+    tour_id = Column(Integer, nullable=False)
+    version = Column(Integer, nullable=True)
 
     fields = relationship(
     	'Fields',
@@ -52,7 +53,7 @@ class Pois(Base):
     )
 
     def __init__(self, required , optional ):
-        self.name = required['name']
+        self.tour_id = required['tour_id']
         if 'values' in optional:
             self.values = optional['values']
         if 'fields' in optional:
@@ -64,7 +65,7 @@ class Pois(Base):
     #     self.values=[]
 
     def __repr__(self):
-        return '<Pois {}>'.format(self.name)
+        return '<Pois {}>'.format(self.id)
 
     def as_dict(self):
        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
@@ -87,7 +88,7 @@ class Pois(Base):
        data = []
        for c in Pois.__table__.columns :
            #print ( c.__dict__ )
-           if c.name not in ['id'] and c.nullable:
+           if c.name not in ['id','name'] and c.nullable:
                data.append(c.name)
        return data
 
@@ -161,10 +162,10 @@ class Values(Base):
     	secondary='association_pfv',
     )
 
-    def __init__(self, fieldValues, createdDate, status):
+    def __init__(self, fieldValues):
         self.fieldValues = fieldValues
-        self.createdDate = createdDate
-        self.status = status
+        # self.createdDate = createdDate
+        # self.status = status
         self.fields=[]
         self.pois=[]
 
